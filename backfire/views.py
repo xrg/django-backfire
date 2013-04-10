@@ -5,11 +5,20 @@ from django.conf import settings
 from django.contrib.admin.views.decorators import staff_member_required
 from django.http import HttpResponse
 #from django.views.decorators.csrf import csrf_exempt
+from django.contrib.staticfiles import finders
 
 from Backfire import *
 
 def _get_file_path( url ):
-    return "%s%s"% ( settings.PROJECT_PATH, urlparse(url).path )
+    path = urlparse(url).path
+    if path.startswith(settings.STATIC_URL):
+        path = path[len(settings.STATIC_URL):]
+        res = finders.find(path, all=False)
+        if res:
+            return res
+    # don't accept any path elements from the remote side, they could
+    # be dangerous.
+    return settings.STATIC_ROOT + path.rsplit('/', 1)[-1]
     
 def cssLoader( url ):
     f = open( _get_file_path(url) , 'r')
