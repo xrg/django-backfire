@@ -23,15 +23,17 @@ def cssSaver(uri, contents):
         f.write(contents)
         f.close()
         return True
-    except:
+    except Exception:
         return False
 
 @staff_member_required
 def get_respond(request):
     if request.method == "POST":
         changes = request.POST.get("backfire-changes", False)
-        if changes:
-            result = process(changes, cssLoader, cssSaver )
-            return HttpResponse(create_message_for_client( result ))
-            
+        try:
+            if changes:
+                result = process(changes, cssLoader, cssSaver )
+                return HttpResponse(create_message_for_client( result ))
+        except Exception, e:
+            log("Exception: %s" % e)
     return HttpResponse(create_message_for_client( ACCESS_GRANTED ))
