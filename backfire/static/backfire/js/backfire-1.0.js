@@ -214,8 +214,8 @@ var Backfire = (function () {
         var name = nameValue[0].replace(/^\s*|\s*$/gi, "");
         
         if ( nameValue[1] == undefined ) {
-            console.log(text)
-            alert("There been error during parsing the CSS. Saving can produce unpredictable results!")
+            console.warn("There been error during parsing the CSS. Saving can produce unpredictable results!");
+            console.debug(text);
         } else {
             var value = nameValue[1].replace(/^\s*|\s*$/gi, "");
             this.declarations[name] = value;
