@@ -16,7 +16,7 @@ class BackfireMiddleware(object):
     <input type="hidden" name="csrfmiddlewaretoken" value="%s" id="csrftip" />
     <script src="%sbackfire/js/config.js"></script>
     <script src="%sbackfire/js/backfire-1.0.js"></script>
-""" % ( get_token(request), settings.MEDIA_URL, settings.MEDIA_URL )
+""" % ( get_token(request), settings.STATIC_URL, settings.STATIC_URL )
     
             content = response.content
             index = content.find('</body>')

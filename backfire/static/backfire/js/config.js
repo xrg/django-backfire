@@ -32,7 +32,7 @@ function BackfireLoadedCallback() {
           if (enabled) {
             // add the css
             var link = document.createElement('link');
-            link.href = "/media/backfire/css/backfire.css";
+            link.href = "/static/backfire/css/backfire.css";
             link.setAttribute('rel', 'stylesheet');
             link.setAttribute('type', 'text/css');
             link.setAttribute('media', 'screen');

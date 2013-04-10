@@ -8,7 +8,7 @@ import os
 from setuptools import setup, find_packages
 
 media_dirs = []
-for directory in os.walk('backfire/media'):
+for directory in os.walk('backfire/static'):
     media_dirs.append(directory[0][9:]+'/*.*')
 
 setup(
