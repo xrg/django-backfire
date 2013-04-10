@@ -203,7 +203,8 @@ var Backfire = (function () {
     declarations: {},
     parseDeclarations: function () {
       this.declarations = {};
-      var text = this.cssRule.cssText.replace(/^.*?\{\s*(.*?)\s*\}/gi, "$1");
+      var text = this.cssRule.cssText.replace(/@media[^\{]*\{\s*([^\}]*)\s*\}/gi, "$1")
+                .replace(/^[^\{]*\{\s*([^\}]*)\s*\}/gi, "$1");
       var pairs = text.split(';');
       if (!pairs) console.log("No pairs found during parseDeclarations.");
       for (var i = 0; i < pairs.length; i++) {
