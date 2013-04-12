@@ -205,23 +205,19 @@ var Backfire = (function () {
       this.declarations = {};
       var text = this.cssRule.cssText.replace(/@media[^\{]*\{\s*([^\}]*)\s*\}/gi, "$1")
                 .replace(/^[^\{]*\{\s*([^\}]*)\s*\}/gi, "$1");
-      var pairs = text.split(';');
-      if (!pairs) console.log("No pairs found during parseDeclarations.");
-      for (var i = 0; i < pairs.length; i++) {
-        var pair = pairs[i].replace(/^\s*|\s*$/gi, "");
-        if (pair == "") continue;
-        var nameValue = (pairs[i] + "").split(':');
-        var name = nameValue[0].replace(/^\s*|\s*$/gi, "");
-        
-        if ( nameValue[1] == undefined ) {
-            console.warn("There been error during parsing the CSS. Saving can produce unpredictable results!");
-            console.debug(text);
-        } else {
-            var value = nameValue[1].replace(/^\s*|\s*$/gi, "");
+      var attr_reg = /\s*([^:;\s]+)\s*\:\s*((?:url\([^\)]*\))|[^;]+)\s*\;?/g ;
+      
+        while (m = attr_reg.exec(text)) {
+            if (! m[1]) {
+                console.warn("There been error during parsing the CSS. Saving can produce unpredictable results!");
+                console.debug(text);
+                break;
+                }
+                
+                name = m[1].trim();
+                value = m[2].trim();
             this.declarations[name] = value;
         }
-
-      }
     }
   };
   if ( window.addEventListener ) {
