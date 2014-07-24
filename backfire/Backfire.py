@@ -74,7 +74,7 @@ def _process(changes, cssLoader, cssSaver):
                                      _declaration, _value))
 
             # NOTE: css class names have a period, which is a regex special char
-            selectorPattern = re.sub(r' ', r'\s+', selector)
+            selectorPattern = re.sub(r'([\[\]\(\)\+])', r'\\\1', selector).replace(' ', r'\s+')
 
             log("process _decl: %s" % _declaration)
 
